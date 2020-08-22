@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
 import seaborn as sns
 import tensorflow.keras
 from tkinter import filedialog
-from PIL import ImageTk, Image, ImageOps
+from PIL import ImageTk, ImageOps,Image
 import numpy as np
 
 engine = pyttsx3.init()
@@ -31,8 +31,11 @@ def predict_ct():
     normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
     data[0] = normalized_image_array
     prediction = model.predict(data)
-    engine.say("hi")
-    print(prediction)
+    img = Image.open('image_400.jpg')
+    im_show= ImageTk.PhotoImage(img)
+    image_label_2 = Label(window, image=im_show,)
+    image_label_2.image = im_show
+    image_label_2.pack()
     lael = Label(window, text=prediction).pack()
     f, ax = plt.subplots(figsize=(11, 9))
     x_axis_label = "+-"
